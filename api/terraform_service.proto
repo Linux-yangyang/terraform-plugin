@@ -1,0 +1,62 @@
+syntax = "proto3";
+
+package api;
+
+option go_package = ".";
+
+service TerraformService {
+  rpc RenderTerraformCode (RenderTerraformCodeRequest) returns (RenderTerraformCodeResponse);
+  rpc ExecuteTerraformCmd (ExecuteTerraformCmdRequest) returns (stream ExecuteTerraformCmdResponse);
+  rpc ResourceInfoGet (ResourceInfoRequest) returns (ResourceInfoResponse);
+}
+
+message RenderTerraformCodeRequest {
+  string region = 1;
+  string data_disk_size = 2;
+  string instance_name = 3;
+  string image_name = 4;
+  string flavor_id = 5;
+  string availability_zone = 6;
+  string eip_bandwidth_name = 7;
+  string data_disk_type = 8;
+  string subnet_name = 9;
+  string sec_group = 10;
+  string cloud = 11;
+  string approval_id = 12;
+  string project_name = 13;
+  string instance_count = 14;
+  string sys_disk_type = 15;
+  string sys_disk_size = 16;
+}
+
+message ExecuteTerraformCmdRequest {
+  string todo = 1;
+  string approval_id =2;
+}
+
+message RenderTerraformCodeResponse {
+  string successCode = 1;
+  string errorDetails = 2;
+}
+
+message ExecuteTerraformCmdResponse {
+  string successMessage = 1;
+  string errorMessage = 2 ;
+  string streamEOF = 3;
+}
+
+message ResourceInfoRequest {
+  string approval_id = 1;
+}
+
+message ResourceInfoStruct {
+  string id = 1;
+  string instance_name = 2;
+  string public_ip = 3;
+  string private_ip = 4;
+  string provider = 5;
+}
+
+message ResourceInfoResponse {
+  map<string, ResourceInfoStruct> resourceInfo = 1;
+}

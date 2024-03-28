@@ -1,0 +1,15 @@
+mode: "debug"
+port: "4399"
+log:
+  level: "debug"
+  filename: "terraform-plugin.log"
+  maxsize: 200
+  max_age: 7
+  max_backups: 10
+terraformDir:
+  root: "./terraform"
+  cloud:
+    - "huawei"
+    - "aliyun"
+  plugging:
+      - ecs
